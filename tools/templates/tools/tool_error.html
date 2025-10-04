@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Report an Error
+{% endblock title %}
+{% block content %}
+  <small><a href="{{ tool.get_absolute_url }}">Back</a></small>
+  <h1>Report an error</h1>
+  <p>You are reporting an error for the tool "{{ tool.name }}"</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+      <div class="mb-3">
+        <span class="text-danger">{{ field.errors }}</span>
+        <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+        {{ field }}
+        <div class="form-text" id="{{ field.auto_id }}_helptext">
+          <small>{{ field.help_text|safe }}</small>
+        </div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+{% endblock content %}

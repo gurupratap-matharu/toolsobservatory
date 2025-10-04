@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Add a new comment{% endblock %}
+{% block content %}
+  <p>
+    <a href="{{ post.get_absolute_url }}">Back</a>
+  </p>
+  <h1>Add a new comment</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Post Comment</button>
+  </form>
+{% endblock %}

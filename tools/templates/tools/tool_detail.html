@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ tool.name }}
+{% endblock title %}
+{% block content %}
+  {% if tool.category %}
+    <small><a href="{% url 'tools:tool-list' %}">Back</a></small>
+  {% endif %}
+  <h1>{{ tool.name }}</h1>
+  <small>
+    {% for tag in tool.tags.all %}
+      <a href="{% url 'tools:tool-list-by-tag' tag.slug %}">{{ tag|title }}</a>
+      {% if not forloop.last %},{% endif %}
+    {% endfor %}
+  </small>
+  <p>
+    <small>Published {{ tool.publish }}</small>
+  </p>
+  <section>
+    <p class="lead">{{ tool.body }}</p>
+  </section>
+  {% if tool.template_fragment %}
+    <section>
+      {% include tool.template_fragment %}
+    </section>
+  {% endif %}
+  <ul>
+    <li>
+      <a href="{{ tool.get_error_url }}">Report an error</a>
+    </li>
+  </ul>
+{% endblock content %}
+{% block js %}
+  {% if tool.js_path %}<script src={{ tool.js_path }} defer></script>{% endif %}
+{% endblock js %}

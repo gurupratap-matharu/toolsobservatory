@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Search for a tool
+{% endblock title %}
+{% block content %}
+  <section>
+    <h1>Search for tools</h1>
+    <form method="get">
+      {% for field in form.visible_fields %}
+        <div class="mb-3">
+          <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </section>
+  <section class="mt-3">
+    {% if query %}
+      <h2>Tools containg "{{ query }}"</h2>
+      {% with total_results=results.count %}
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+        <hr />
+      {% endwith %}
+    {% endif %}
+  </section>
+  <section>
+    {% for tool in results %}
+      <h4>
+        <a href="{{ tool.get_absolute_url }}">{{ tool.name }}</a>
+      </h4>
+      <p>{{ tool.body }}</p>
+    {% empty %}
+      <p>There are no results for your query.</p>
+    {% endfor %}
+  </section>
+{% endblock content %}

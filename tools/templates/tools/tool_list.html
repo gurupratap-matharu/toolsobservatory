@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Tool List
+{% endblock title %}
+{% block content %}
+  <h1>All Tools</h1>
+  <hr />
+  <p>
+    <abbr><a href="{% url 'tools:tool-search' %}">Search</a></abbr>
+  </p>
+  {% if tag %}<h2>Tools tagged with "{{ tag.name }}"</h2>{% endif %}
+  {% if category %}<h2>Category "{{ category.name }}"</h2>{% endif %}
+  {% for tool in tools %}
+    <h2>
+      <a href="{{ tool.get_absolute_url }}">{{ tool.name }}</a>
+    </h2>
+    <small>
+      {% for tag in tool.tags.all %}
+        <a href="{% url 'tools:tool-list-by-tag' tag.slug %}">{{ tag|title }}</a>
+        {% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </small>
+    {{ tool.body|truncatewords:30|linebreaks }}
+  {% endfor %}
+{% endblock content %}
