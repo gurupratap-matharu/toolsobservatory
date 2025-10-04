@@ -283,7 +283,6 @@ SHELL_PLUS_PRINT_SQL_TRUNCATE = None
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
 
 if not DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "smtp.mailgun.org"
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="mb-3">
   <label class="form-label" for="input">Markdown</label>
   <textarea class="form-control" id="input" name="input" rows="10" placeholder="Paste your markdown code here" required></textarea>
@@ -10,4 +12,4 @@
   <textarea class="form-control" id="output" name="output" rows="10" placeholder="Your html should appear here"></textarea>
 </div>
 <button class="btn btn-primary mb-3" id="copy">Copy</button>
-<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+<script src="{% static 'js/marked.umd.js' %}"></script>

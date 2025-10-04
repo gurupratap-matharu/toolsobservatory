@@ -14,6 +14,21 @@ dependencies = [
     "python-dotenv>=1.1.1",
 ]
 
+[tool.ruff]
+line-length=119
+exclude=["*migrations*", "static"]
+
+[tool.ruff.lint.isort]
+combine-as-imports=true
+force-single-line=false
+known-first-party=["blog"]
+known-third-party=["rest_framework"]
+lines-after-imports=2
+section-order=["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.isort.sections]
+"django"=["django"]
+
 [tool.djlint]
 blank_line_before_tag="load,extends"
 blank_line_after_tag="load,extends"
@@ -63,4 +78,6 @@ show_contexts=true
 [dependency-groups]
 dev = [
     "django-debug-toolbar>=6.0.0",
+    "djlint>=1.36.4",
+    "ipython>=9.6.0",
 ]

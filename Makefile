@@ -24,10 +24,7 @@ check-deploy:
 	python manage.py check --deploy
 
 install:
-	poetry install
-
-update:
-	poetry update
+	uv sync
 
 setup_test_data:
 	python manage.py setup_test_data
@@ -62,12 +59,12 @@ runserver:
 build: install makemigrations migrate runserver
 
 format:
-	poetry run ruff check --select I --fix
-	poetry run ruff format .
+	ruff check --select I --fix
+	ruff format .
 	djlint --reformat .
 
 lint:
-	poetry run ruff check .
+	ruff check .
 	djlint --lint .
 	djlint --check .
 
@@ -76,8 +73,8 @@ test: check migrations-check
 	coverage html
 
 security:
-	poetry run bandit -r .
-	poetry run safety check
+	bandit -r .
+	safety check
 
 ci: format lint security test
 
