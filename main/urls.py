@@ -6,6 +6,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 from blog.sitemaps import PostSitemap
+from pages.views import IndexNow
 from tools.sitemaps import ToolSitemap
 
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path("blog/", include("blog.urls", namespace="blog")),
     path("tools/", include("tools.urls", namespace="tools")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path(f"{settings.INDEXNOW_KEY}.txt", IndexNow.as_view(), name="indexnow"),
     path("", include("pages.urls", namespace="pages")),
 ]
 
