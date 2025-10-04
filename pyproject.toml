@@ -1,7 +1,7 @@
 [project]
 name = "tools"
 version = "0.1.0"
-description = "Add your description here"
+description = "Little tools that solve a specific problem"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -11,4 +11,55 @@ dependencies = [
     "django-taggit>=6.1.0",
     "markdown>=3.9",
     "python-dotenv>=1.1.1",
+]
+
+[tool.djlint]
+blank_line_before_tag="load,extends"
+blank_line_after_tag="load,extends"
+close_void_tags=true
+custom_blocks="toc,example"
+custom_html="mjml"
+exclude=".venv,venv,.tox,.eggs,.git"
+extend_exclude=".custom"
+format_attribute_template_tags=true
+format_css=true
+format_js=true
+ignore_blocks="raw,example"
+indent=2
+max_attribute_length=120
+max_line_length=120
+profile="django"
+# preserve_blank_lines=true
+use_gitignore=true
+
+[tool.djlint.css]
+indent_size=5
+
+[tool.djlint.js]
+indent_size=5
+
+[tool.coverage.run]
+branch=true
+omit=[
+    "*/migrations/*",
+    "*/tests/*",
+    "/usr/*",
+    "main/asgi.py",
+    "main/wsgi.py",
+    "main/settings.py",
+    "manage.py",
+    "*/urls.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+show_missing=true
+skip_covered=false
+
+[tool.coverage.html]
+show_contexts=true
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=6.0.0",
 ]
