@@ -283,7 +283,7 @@ SHELL_PLUS_PRINT_SQL_TRUNCATE = None
 INDEXNOW_KEY = os.getenv("INDEXNOW_KEY")
 
 if not DEBUG:
-    EMAIL_HOST = "smtp.mailgun.org"
+    EMAIL_HOST = os.getenv("EMAIL_HOST")
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
     EMAIL_PORT = 587
