@@ -32,7 +32,7 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
 
             echo "running git pull..."
-            git pull origin master
+            git pull origin main
 
             echo "syncing dependencies..."
             /home/veer/.local/bin/uv sync
