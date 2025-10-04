@@ -1,0 +1,62 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.13"]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Deploy to server
+        # don't run locally
+        if: ${{ !env.ACT }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            cd ${{ secrets.PROJECT_PATH }}
+
+            echo "running git pull..."
+            git pull origin master
+
+            echo "syncing dependencies..."
+            /home/veer/.local/bin/uv sync
+
+            echo "activating venv..."
+            cd /home/veer/code/tools
+            source .venv/bin/activate
+
+            echo "collecting static..."
+            python manage.py collectstatic --noinput
+
+            echo "showing migrations..."
+            python manage.py showmigrations
+
+            echo "applying migrations..."
+            python manage.py migrate
+
+            echo "reloading daemon..."
+            sudo systemctl daemon-reload
+
+            echo "restarting gunicorn..."
+            sudo systemctl restart tools.service
+
+            echo "reloading nginx..."
+            sudo nginx -s reload
+
+            echo "All done!"
