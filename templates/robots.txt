@@ -6,15 +6,8 @@ Disallow: /admin/
 Disallow: /captcha/
 Disallow: /cart/
 Disallow: /cdn-cgi/
-Disallow: /coupons/
-Disallow: /django-admin/
 Disallow: /media/
-Disallow: /orders/
-Disallow: /payments/
 Disallow: /private/
 
-User-agent: GPTBot
-Disallow: /
-
 # Sitemap files
-Sitemap: https://mydomain.com/sitemap.xml
+Sitemap: https://toolsobservatory.com/sitemap.xml

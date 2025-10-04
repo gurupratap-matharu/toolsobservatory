@@ -13,7 +13,8 @@ docs/
 __pycache__
 db.sqlite3
 media
-static/
+/static/
+!/static/**
 staticfiles/
 
 
