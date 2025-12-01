@@ -3,6 +3,12 @@ from django.contrib import admin
 from .models import Category, Tool
 
 
+admin.site.empty_value_display = "(None)"
+admin.site.site_header = "Tools Observatory"
+admin.site.site_title = "Tools Observatory Portal"
+admin.site.index_title = "Welcome to ToolsObservatory"
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "slug")
